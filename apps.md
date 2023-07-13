@@ -1,4 +1,4 @@
-### **LRM/lrm/models.py**
+### **LRM/lrm/apps.py**
 ```python
 from django.apps import AppConfig
 
