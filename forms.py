@@ -28,7 +28,7 @@ class InterfacesAdminForm(forms.ModelForm):
         widgets = {
             "device_port": widgets.TextInput(attrs={"style": "width:60%;","placeholder": "当设备型号不是交换机时，请输入设备端口号, 例: 设备端口为 xxvgei-0/1/1/1 或 cgei-0/1/1/1, 测试仪端口为 1/1"}),
             "domain": widgets.TextInput(attrs={"style": "width:60%;","placeholder": "测试仪端口必须填写设备域名, 例: UFP_10.229.100.36"}),
-        }
+                  }
 
 class SwitchportsAdminForm(forms.ModelForm):
     class Meta:
