@@ -1,0 +1,28 @@
+<form action="{% url 'keyword_search' %}" method="POST"> 
+{% csrf_token %} 
+
+<div class="search-box">
+<input type="text"  id="search" name="keyword" placeholder="请输入要查询的关键字所包含的内容" class="search-input"> 
+<div id="results" style="display: none;"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#search').on('input', function(e){
+        $.get('/search/', {q: $(this).val()}, function(data){
+            $('#results').empty();
+            if (data.length > 0) {
+                $('#results').show();
+                $.each(data, function(i, item){
+                    $('#results').append('<div>' + item.name + '</div>');
+                });
+            } else {
+                $('#results').hide();
+            }
+        });
+    });
+});
+</script>
+<button type="submit"  class="search-button">查询</button> 
+</div>
+</form>
