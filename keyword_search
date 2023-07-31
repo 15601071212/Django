@@ -675,3 +675,30 @@ urlpatterns =[
     });
 });
 </script>
+
+$(document).ready(function() {
+    
+    function sendRequest() {
+        // 获取所有选中的db_name的值
+        var db_names = [];
+        $('input[name="db_name"]:checked').each(function() {
+            db_names.push($(this).val());
+        });
+
+        var keyword = $("#search").val();
+
+        // 使用Ajax发送关键字和选中的db_name的值到后端，并获取匹配的提示信息
+        $.ajax({
+            url: "/search/",  // 这里是后端Django开发的API地址
+            method: "GET",
+            data: {
+                "keyword": keyword,
+                "db_name": db_names
+            },
+            // ...
+        });
+    }
+    
+    $("#search").on("input", sendRequest);
+    $('input[name="db_name"]').on('change', sendRequest);
+});
