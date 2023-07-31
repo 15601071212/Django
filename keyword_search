@@ -23,6 +23,44 @@ $(document).ready(function(){
     });
 });
 </script>
+
+urls.py
+
+from django.urls import re_path as url
+
+from . import views
+from .views import SearchView
+
+from django.urls import path
+
+urlpatterns =[
+     url('keyword_search', views.keyword_search, name='keyword_search'),
+     url('detail', views.detail_view, name='detail'),
+     url('search/', SearchView.as_view(), name='search')
+        ]
 <button type="submit"  class="search-button">查询</button> 
 </div>
 </form>
+
+views.py
+
+from django.shortcuts import render,get_object_or_404
+import re
+import time
+from srm.models import KeywordPost
+from srm.models import KeywordList
+from srm.models import ScriptPost
+
+from django.http import JsonResponse
+from django.views import View
+from django.core import serializers
+from django.db.models import Q
+
+class SearchView(View):
+    def get(self, request):
+        query = request.GET.get('q', None)
+        if query:
+            results = KeywordList.objects.filter(kyeword_name__icontains=query)
+            data = serializers.serialize('json', results)
+            return JsonResponse(data, safe=False)
+        return JsonResponse({}, status=400)
