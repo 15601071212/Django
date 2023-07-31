@@ -163,12 +163,12 @@ def search_view(request):
     });
     </script>
 <button type="submit"  class="search-button">查询</button> 
+</div>
+</form>
+</html>
 
 urlpatterns =[
      url('/search/', views.search_view, name='search')
      url('keyword_search', views.keyword_search, name='keyword_search'),
      url('detail', views.detail_view, name='detail'),
         ]
-</div>
-</form>
-</html>
