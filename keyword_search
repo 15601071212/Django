@@ -219,3 +219,62 @@ urlpatterns =[
         });
     });
 </script>
+
+
+<!-- 修改HTML部分 -->
+<form>
+    <div class="search-box">
+        <input type="text" id="search" name="keyword" placeholder="请输入要查询的关键字所包含的内容" class="search-input">
+    </div>
+</form>
+<!-- 使用<select>元素来创建下拉列表 -->
+<div>
+    <select id="suggestions-container" style="display: none;">
+    </select>
+</div>
+
+<!-- 修改JavaScript部分 -->
+<script>
+    $(document).ready(function () {
+        $("#search").on("input", function () {
+            var keyword = $(this).val();
+
+            // 使用Ajax发送关键字到后端，并获取匹配的提示信息
+            $.ajax({
+                url: "/search/",
+                method: "GET",
+                data: {
+                    "q": keyword
+                },
+                success: function (response) {
+                    // 清空之前的下拉列表内容
+                    $("#suggestions-container").empty();
+
+                    // 使用<option>元素添加后端返回的提示信息到下拉列表中
+                    for (var i = 0; i < response.length; i++) {
+                        var option = $("<option>").text(response[i]).val(response[i]);
+                        $("#suggestions-container").append(option);
+                    }
+
+                    // 显示下拉列表
+                    $("#suggestions-container").show();
+                },
+                error: function (error) {
+                    console.log("请求错误: " + error);
+                }
+            });
+        });
+
+        // 监听下拉列表的change事件
+        $("#suggestions-container").on("change", function () {
+            // 获取用户选择的值
+            var selectedValue = $(this).val();
+
+            // 将选择的值填充到搜索框中
+            $("#search").val(selectedValue);
+
+            // 隐藏下拉列表
+            $("#suggestions-container").hide();
+        });
+    });
+</script>
