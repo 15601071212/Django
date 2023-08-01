@@ -2012,3 +2012,8 @@ export default {
 <script>
     // ... 同上 JavaScript 代码
 </script>
+
+<div style="display: flex; justify-content: center;">
+    <select id="suggestions-container" style="display: none; width: 50%;">
+    </select>
+</div>
