@@ -1964,3 +1964,35 @@ export default {
       }
       </style>
 </html>
+
+<!-- 使用 flex container 包裹搜索框和下拉菜单 -->
+<div class="flex-container">
+    <div class="search-box">
+        <input type="text" id="search" name="keyword" placeholder="请输入要查询的关键字所包含的内容" class="search-input"> 
+        <button type="submit" class="search-button">查询</button> 
+    </div>
+
+    <!-- 下拉菜单开始 -->
+    <div id="suggestions-container" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Suggestions
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <!-- 在这里动态插入提示 -->
+        </div>
+    </div>
+    <!-- 下拉菜单结束 -->
+</div>
+
+<!-- CSS 部分 -->
+<style>
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+    }
+</style>
+
+<script>
+    // ... 同上 JavaScript 代码
+</script>
