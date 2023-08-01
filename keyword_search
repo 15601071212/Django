@@ -1996,3 +1996,19 @@ export default {
 <script>
     // ... 同上 JavaScript 代码
 </script>
+
+<div class="search-container">
+    <div class="search-box">
+        <input type="text" id="search" name="keyword" placeholder="请输入要查询的关键字所包含的内容" class="search-input"> 
+        <button type="submit" class="search-button">查询</button> 
+    </div>
+</div>
+
+<!-- 下拉菜单开始，直接设置样式 -->
+<select id="suggestions-container" style="display: none; width: 50%; margin: 0 auto;">
+</select>
+<!-- 下拉菜单结束 -->
+
+<script>
+    // ... 同上 JavaScript 代码
+</script>
