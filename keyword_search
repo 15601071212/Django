@@ -1390,12 +1390,7 @@ $(document).ready(function() {
             <table id="table"></table>
         </div>
         </body>
-    
-
-    <table id="table"></table>
 </div>
-
-
 </body>
 <script type="text/javascript">
     $(document).ready(function(){ 
@@ -1463,21 +1458,6 @@ $(document).ready(function() {
         },
     });
     
-    
-
-    
-
-
-    
-    
-     
-    
-
-    
-      
-
-      
-      
     //定义子表函数
     function zi_table(index, row, $detail) {
         var fzr_table = $detail.html('<table></table>').find('table');
@@ -1499,3 +1479,23 @@ $(document).ready(function() {
 
 </html>
 
+var columns = [
+    {   field: 'id',
+        title: '序号',
+        sortable:true //设置ID列可以排序
+    }, {   field: 'peizhi',
+        title: '配置类关键字',
+        formatter: function(value, row, index) {
+            return '<a href="https://www.example.com/?keyword=' + value + '">' + value + '</a>';
+        }
+    }, {
+        field: 'jiancha',
+        title: '检查类关键字',
+    }, {
+        field: 'huoqu',
+        title: '获取类关键字'
+    }, {
+        field: 'ceshiyi',
+        title: '测试仪类关键字'
+    },
+];
