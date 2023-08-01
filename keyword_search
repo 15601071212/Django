@@ -1557,3 +1557,65 @@ export default {
   background-color: #45a049;
 }
 </style>
+
+<div class="search-box">
+    <input type="text" id="search" name="keyword" placeholder="请输入要查询的关键字所包含的内容" class="search-input"> 
+
+    <!-- 下拉菜单开始 -->
+    <div id="suggestions-container" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Suggestions
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <!-- 在这里动态插入提示 -->
+        </div>
+    </div>
+    <!-- 下拉菜单结束 -->
+
+    <button type="submit" class="search-button">查询</button> 
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#search").on("input", function() {
+            var keyword = $(this).val();
+            var db_names = [];
+            $('input[name="db_name"]:checked').each(function() {
+                db_names.push($(this).val());
+            });
+            
+            $.ajax({
+                url: "/search/",  // 这里是后端Django开发的API地址
+                method: "GET",
+                data: {
+                    "keyword": keyword,
+                    "db_name": db_names
+                },
+                success: function(response) {
+                    // 清空之前的提示信息
+                    $("#suggestions-container .dropdown-menu").empty();
+                    
+                    // 使用<div>元素添加后端返回的提示信息到下拉列表中
+                    for (var i = 0; i < response.length; i++) {
+                        var item = $("<div>").text(response[i]).addClass("dropdown-item").attr("href", "#");
+                        $("#suggestions-container .dropdown-menu").append(item);
+                    }
+                },
+                error: function(error) {
+                    console.log("请求错误: " + error);
+                }
+            });
+        });
+
+        // 监听下拉列表的点击事件
+        $("#suggestions-container").on("click", ".dropdown-item", function (e) {
+            e.preventDefault();  // 阻止默认事件
+            
+            // 获取用户选择的值
+            var selectedValue = $(this).text();
+            
+            // 将选择的值填充到搜索框中
+            $("#search").val(selectedValue);
+        });
+    });
+</script>
