@@ -1499,3 +1499,61 @@ var columns = [
         title: '测试仪类关键字'
     },
 ];
+
+<template>
+  <div class="search-container">
+    <input class="search-input" type="text" v-model="searchQuery" placeholder="Search..." />
+    <button class="search-button" @click="search">Search</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    search() {
+      console.log(`Searching for ${this.searchQuery}`)
+      // 在这里执行搜索操作...
+    }
+  }
+}
+</script>
+
+<style scoped>
+.search-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.search-input {
+  width: 200px;
+  height: 35px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+
+.search-button {
+  height: 35px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 0 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+</style>
