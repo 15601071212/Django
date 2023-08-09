@@ -2017,3 +2017,14 @@ export default {
     <select id="suggestions-container" style="display: none; width: 50%;">
     </select>
 </div>
+
+from pygments import highlight
+from pygments.lexers import RobotFrameworkLexer
+from pygments.formatters import HtmlFormatter
+
+with open('sample.robot', 'r') as file:
+    content = file.read()
+
+html_content = highlight(content, RobotFrameworkLexer(), HtmlFormatter(full=True))
+with open('output.html', 'w') as file:
+    file.write(html_content)
