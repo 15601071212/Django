@@ -334,3 +334,5 @@ admin.site.site_title="自动化测试中台资源库"
 
 admin.site.index_title="自动化测试中台资源库"
 ```
+> 上述设置生效后，用admin账号和密码登录Django项目管理网站页面后可以看到网站名称和标题已经改为自定义的中文名称：
+http://10.229.191.63:8888/admin
