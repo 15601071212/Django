@@ -1,10 +1,15 @@
 # 用Django搭建Web应用 第二章
 ## 设计应用的数据架构(data schema)、创建数据模型的管理网站并且添加数据模型到管理网站
 ### 1. 设计应用的数据架构(data schema)
-> 以设计MariaDB数据库中的设备数据表Devicespool为例，在项目LRM的应用lrm的文件夹下在models.py文件中添加名为Devicespool的类(class)如下所示：
+> 以设计MariaDB数据库中的设备数据表Devicespool为例，在项目mysite的应用blog的文件夹下在models.py文件中添加名为Devicespool的类(class)如下所示：
+```bash
+root@zdh-web-00:/var/www/mysite/blog# pwd
+/var/www/mysite/blog
+root@zdh-web-00:/var/www/mysite/blog# more models.py
+```
 ```python
 from django.db import models
-from django.contrib.auth.models import User
+
 MODEL_CHOICES = (
             ('ssp', 'zxrufp::ssp'),
             ('ufp', 'zxrufp::ufp'),
@@ -38,7 +43,6 @@ CONNECT_CHOICES = (
         ('telnet', 'Telnet'),
     )       
 class Devicespool(models.Model):
-    #id = models.IntegerField(primary_key=True, verbose_name="序号",default= 0)
     testbedid = models.IntegerField(blank=True, null=True)
     model = models.CharField(max_length=50, blank=False, null=True,verbose_name="设备型号",choices=MODEL_CHOICES,help_text='参数文件中"model"的值')
     device_name = models.CharField(max_length=50, blank=False, null=True,verbose_name="设备名称",help_text='参数文件中"device_name"的值')
@@ -64,7 +68,6 @@ class Devicespool(models.Model):
     rfassets = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=False, null=True,verbose_name="创建时间") 
     updated_at = models.DateTimeField(auto_now=True,blank=False, null=True,verbose_name="更新时间")
-    owner = models.ForeignKey(User, on_delete = models.CASCADE, db_column='owner', blank=True, null=True,verbose_name="责任人")
 
     class Meta:
         db_table = 'DevicesPool'
@@ -74,4 +77,12 @@ class Devicespool(models.Model):
         
     def __str__(self):
         return "%s::%s" % (self.id, self.device_name)
+```
+> 在models.py文件中定义了一个应用的数据模型之后，用下面的命令将数据模型迁移到数据库：
+```bash
+root@zdh-web-00:/var/www/mysite# python3 manage.py makemigrations blog
+Migrations for 'blog':
+  blog/migrations/0001_initial.py
+    - Create model Devicespool
+root@zdh-web-00:/var/www/mysite# 
 ```
