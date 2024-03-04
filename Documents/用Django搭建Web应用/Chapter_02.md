@@ -293,3 +293,16 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 root@zdh-web-00:/var/www/mysite#
 ```
+### 2. 创建数据模型的管理网站
+> 执行命令python3 manage.py createsuperuser创建管理员账号admin和密码如下所示：
+```bash
+root@zdh-web-00:/var/www/mysite# python3 manage.py createsuperuser
+Username (leave blank to use 'root'): admin
+Email address: admin@skynet.com
+Password: 
+Password (again): 
+Superuser created successfully.
+root@zdh-web-00:/var/www/mysite#
+```
+> 创建管理员账号后访问网址http://10.229.191.63:8888/admin可以看到下面的登录页面：
+
