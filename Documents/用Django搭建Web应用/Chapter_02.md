@@ -3,9 +3,9 @@
 ### 1. 设计应用的数据架构(data schema)
 > 以设计MariaDB数据库中的设备数据表Devicespool为例，在项目mysite的应用blog的文件夹下在models.py文件中添加名为Devicespool的类(class)如下所示：
 ```bash
-root@zdh-web-00:/var/www/mysite/blog# pwd
-/var/www/mysite/blog
-root@zdh-web-00:/var/www/mysite/blog# more models.py
+root@localhost:/var/www/LRM/lrm# pwd
+/var/www/LRM/lrm
+root@localhost:/var/www/LRM/lrm# more models.py
 ```
 ```python
 from django.db import models
