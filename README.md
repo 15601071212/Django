@@ -76,3 +76,7 @@ root@zdh-web-00:~/mysite# tree
 
 root@zdh-web-00:~/mysite#
 ```
+本地数据库迁移
+```bash
+root@zdh-web-00:~/mysite# python3 manage.py migrate
+```
