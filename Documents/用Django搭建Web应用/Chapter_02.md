@@ -304,7 +304,9 @@ Password (again):
 Superuser created successfully.
 root@localhost:/var/www/LRM#
 ```
-> 创建管理员账号后访问网址 http://139.144.210.48:8888/admin 可以看到下面的登录页面：
+创建管理员账号后访问网址 http://139.144.210.48:8888/admin 可以看到下面的登录页面：
+![image](https://github.com/15601071212/Django/assets/17488098/0540fc6c-3a8b-4071-a25e-8c75efde3485)
+
 > 注1：编辑/var/www/LRM/LRM/settings.py配置文件，将LANGUAGE_CODE设置为 'zh-hans'可以，可以在管理页面中显示中文
 ```python
 # Internationalization
@@ -313,6 +315,8 @@ root@localhost:/var/www/LRM#
 LANGUAGE_CODE = 'zh-hans'
 #LANGUAGE_CODE = 'en-us'
 ```
+![image](https://github.com/15601071212/Django/assets/17488098/b0bed307-a031-40ee-b22b-fc363497731f)
+
 > 注2：编辑/var/www/mysite/blog/apps.py设置VERBOSE_APP_NAME = "设备资源管理"，可以在管理页面中设置应用(APP)的中文名称
 ```python
 from django.apps import AppConfig
@@ -324,6 +328,8 @@ class BlogConfig(AppConfig):
     name = 'blog'
     verbose_name = VERBOSE_APP_NAME
 ```
+![image](https://github.com/15601071212/Django/assets/17488098/2470612b-04dc-4f0f-b570-856116aef457)
+
 > 注3：编辑/var/www/mysite/blog/admin.py添加如下配置自定义Django项目管理网站的中文名称与标题：
 ```python
 from django.contrib import admin
@@ -336,6 +342,8 @@ admin.site.index_title="自动化测试中台资源库"
 ```
 > 上述设置生效后，用admin账号和密码登录Django项目管理网站页面后可以看到网站名称和标题已经改为自定义的中文名称：
 http://10.229.191.63:8888/admin
+![image](https://github.com/15601071212/Django/assets/17488098/9189bc96-b66f-48df-bbee-95b5a22335a6)
+
 ### 3. 添加数据模型到管理网站
 > 编辑/var/www/LRM/lrm/models.py文件中数据表Devicespool的数据模型类Devicespool中的Meta类下的verbose_name和verbose_name_plural参数可以定义数据表在Django管理页面中的中文名称：
 ```python
@@ -345,6 +353,7 @@ class Devicespool(models.Model):
         verbose_name_plural = "设备资源"
 ```
 修改后管理网站页面显示如下图所示：
+![image](https://github.com/15601071212/Django/assets/17488098/1b55bcbf-d3a9-4b63-b026-92fe8fada02e)
 
 > 编辑/var/www/LRM/lrm/admin.py文件，添加如下所示的代码可以在Django管理页面上显示数据模型(model)类Devicespool对应的数据库中数据表Devicespool的数据字段显示列表(list_display)、过滤器(list_filter)和搜索框(search_fields)：
 ```python
@@ -363,3 +372,4 @@ class LrmDeviceAdmin(admin.ModelAdmin):
 
 ```
 修改后管理网站页面显示如下图所示：
+![image](https://github.com/15601071212/Django/assets/17488098/73956b60-baf8-4707-8b8e-0321a89f04ff)
