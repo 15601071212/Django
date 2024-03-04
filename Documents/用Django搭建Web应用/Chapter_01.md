@@ -156,7 +156,7 @@ Quit the server with CONTROL-C.
 > https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
 ### 3. 创建应用(application)
-> 用命令行python3 manage.py startapp blog创建一个名为blog的应用，生成的blog文件夹及相关文件如下所示：
+> 用命令行python3 manage.py startapp lrm创建一个名为lrm的应用，生成的lrm文件夹及相关文件如下所示：
 ```bash
 root@localhost:/var/www/LRM# python3 manage.py startapp lrm
 root@localhost:/var/www/LRM# ls -al | grep lrm
@@ -189,4 +189,17 @@ root@localhost:/var/www/LRM# tree
 4 directories, 18 files
 root@localhost:/var/www/LRM#  
 ```
+> 在:/var/www/LRM/LRM路径下的settings.py文件中添加名称为lrm的应用（APP）如下所示：
+```python
+# Application definition
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'lrm',
+]
+```
