@@ -36,47 +36,88 @@ https://docs.djangoproject.com/en/3.0/topics/install/
 创建一个名为blog的应用，生成的mysite文件夹及相关的文件如下所示：
 
 ```bash
-root@zdh-web-00:~# django-admin startproject mysite
-
-root@zdh-web-00:~# ls -al | grep mysite
-
-drwxr-xr-x  3 root      root         4096 Dec 28 16:31 mysite
-
-root@zdh-web-00:~# cd mysite
-
-root@zdh-web-00:~/mysite# tree
-
+root@zdh-web-00:/var/www# django-admin startproject mysite
+root@zdh-web-00:/var/www# ls -al | grep mysite
+drwxr-xr-x  3 root root      4096 Mar  4 10:56 mysite
+root@zdh-web-00:/var/www# cd mysite
+root@zdh-web-00:/var/www/mysite# tree
 .
-
-├── db.sqlite3
-
 ├── manage.py
-
 └── mysite
+    ├── asgi.py
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
 
-├── asgi.py
-
-├── __init__.py
-
-├── __pycache__
-
-│   ├── __init__.cpython-38.pyc
-
-│   ├── settings.cpython-38.pyc
-
-│   └── urls.cpython-38.pyc
-
-├── settings.py
-
-├── urls.py
-
-└── wsgi.py
-
-2 directories, 10 files
-
-root@zdh-web-00:~/mysite#
+1 directory, 6 files
+root@zdh-web-00:/var/www/mysite#
 ```
-本地数据库迁移
+> 本地数据库迁移
 ```bash
-root@zdh-web-00:~/mysite# python3 manage.py migrate
+root@zdh-web-00:/var/www/mysite# python3 manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying sessions.0001_initial... OK
+root@zdh-web-00:/var/www/mysite# 
+```
+> 运行开发服务器
+```bash
+root@zdh-web-00:/var/www/mysite# python3 manage.py runserver 0.0.0.0:8888
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 04, 2024 - 03:01:43
+Django version 4.1.5, using settings 'mysite.settings'
+Starting development server at http://0.0.0.0:8888/
+Quit the server with CONTROL-C
+```
+如果需要远程访问开发服务器默认Web页面，需要在settings.py文件中把下面这行：
+
+ALLOWED_HOSTS = []
+
+改为如下所示：
+
+ALLOWED_HOSTS = ['*']
+
+表示允许所有的主机远程访问开发服务器默认Web页面http://10.229.191.63:8888/
+
+> settings.py文件路径如下：
+```bash
+root@zdh-web-00:/var/www/mysite/mysite# pwd
+/var/www/mysite/mysite
+root@zdh-web-00:/var/www/mysite/mysite# ls -al
+total 28
+drwxr-xr-x 3 root root 4096 Mar  4 11:06 .
+drwxr-xr-x 3 root root 4096 Mar  4 10:59 ..
+-rw-r--r-- 1 root root  389 Mar  4 10:56 asgi.py
+-rw-r--r-- 1 root root    0 Mar  4 10:56 __init__.py
+drwxr-xr-x 2 root root 4096 Mar  4 11:06 __pycache__
+-rw-r--r-- 1 root root 3224 Mar  4 11:06 settings.py
+-rw-r--r-- 1 root root  748 Mar  4 10:56 urls.py
+-rw-r--r-- 1 root root  389 Mar  4 10:56 wsgi.py
+root@zdh-web-00:/var/www/mysite/mysite#
+```
+> 打开浏览器输入以下网址可以成功远程访问开发服务器默认Web页面：
+
+> http://172.232.187.216:8888/
+
+如果从本地访问开发服务器默认Web页面http://127.0.0.1:8000/
+
+则不需要python3 manage.py runserver添加参数0.0.0.0：8888和修改settings.py文件
+```bash
+root@zdh-web-00:/var/www/mysite# python3 manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 04, 2024 - 03:16:58
+Django version 4.1.5, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 ```
