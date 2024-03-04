@@ -1,5 +1,5 @@
 # 用Django搭建Web应用第一章
-## 安装
+## 安装Django并创建项目（project）与应用（app）
 ### 1. 安装Django
 > 检查当前Python版本
 ```bash
