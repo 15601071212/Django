@@ -350,6 +350,8 @@ from django.contrib import admin
 
 from .models import Devicespool
 
+@admin.register(Devicespool)
+
 class LrmDeviceAdmin(admin.ModelAdmin):
 
     model = Devicespool
@@ -361,7 +363,5 @@ class LrmDeviceAdmin(admin.ModelAdmin):
     list_filter = ("model", "status")
 
     search_fields = ("device_name", "model", "domain", "status", "mgt_address")
-
-    admin.site.register(Devicespool,LrmDeviceAdmin)
 
 ```
