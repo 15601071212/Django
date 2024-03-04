@@ -79,23 +79,23 @@ class Devicespool(models.Model):
         return "%s::%s" % (self.id, self.device_name)
 ```
 > 在models.py文件中定义了一个应用的数据模型之后，用下面的命令将数据模型迁移到数据库：
-python3 manage.py makemigrations blog(生成用于迁移的数据库shell命令行)
+python3 manage.py makemigrations lrm(生成用于迁移的数据库shell命令行)
 python3 manage.py migrate(连接数据库执行数据库迁移命令)：
 ```bash
-root@zdh-web-00:/var/www/mysite# python3 manage.py makemigrations blog
-Migrations for 'blog':
-  blog/migrations/0001_initial.py
+root@localhost:/var/www/LRM# python3 manage.py makemigrations lrm
+Migrations for 'lrm':
+  lrm/migrations/0001_initial.py
     - Create model Devicespool
-root@zdh-web-00:/var/www/mysite# python3 manage.py migrate
+root@localhost:/var/www/LRM# python3 manage.py migrate
 Operations to perform:
-  Apply all migrations: admin, auth, blog, contenttypes, sessions
+  Apply all migrations: admin, auth, contenttypes, lrm, sessions
 Running migrations:
-  Applying blog.0001_initial... OK
-root@zdh-web-00:/var/www/mysite# 
+  Applying lrm.0001_initial... OK
+root@localhost:/var/www/LRM# 
 ```
 > 用下面的命令通过应用名和序号查询对应的MySQL命令：
 ```bash
-root@zdh-web-00:/var/www/mysite# python3 manage.py sqlmigrate blog 0001
+root@localhost:/var/www/LRM# python3 manage.py sqlmigrate lrm 0001
 BEGIN;
 --
 -- Create model Devicespool
@@ -103,7 +103,7 @@ BEGIN;
 CREATE TABLE "DevicesPool" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "testbedid" integer NULL, "model" varchar(50) NULL, "device_name" varchar(50) NULL, "domain" varchar(50) NULL, "status" varchar(50) NULL, "user" varchar(50) NULL, "connect" varchar(50) NULL, "mgt_address" char(39) NULL, "mgt_port" varchar(50) NULL, "com_address" varchar(50) NULL, "com_port" varchar(50) NULL, "username" varchar(50) NULL, "password" varchar(50) NULL, "ports_num_total" integer NULL, "device_tag" varchar(250) NULL, "board_tag" varchar(250) NULL, "board_type" varchar(250) NULL, "slot" varchar(100) NULL, "board_num" integer NULL, "priv_cmd" varchar(50) NULL, "priv_passwd" varchar(50) NULL, "maintain" varchar(50) NULL, "rfassets" varchar(50) NULL, "created_at" datetime NULL, "updated_at" datetime NULL);
 CREATE UNIQUE INDEX "DevicesPool_device_name_domain_mgt_address_941c95bf_uniq" ON "DevicesPool" ("device_name", "domain", "mgt_address");
 COMMIT;
-root@zdh-web-00:/var/www/mysite#
+root@localhost:/var/www/LRM# 
 ```
 > 默认生成的在Django自带的数据库中数据表名称为用下划线连接的应用名称和模型中类(class)名称的小写形式：blog_devicespool，可以在Meta类(class)中自定义数据库中数据表的名称db_table = 'Devicespool'
 
@@ -118,28 +118,28 @@ root@zdh-web-00:/var/www/mysite#
 ```
 > 注释掉Meta类(class)中managed = False参数上述迁移命令python3 manage.py makemigrations blog和python3 manage.py migrate才能生效
 ```bash
-root@zdh-web-00:/var/www/mysite# python3 manage.py makemigrations blog
-Migrations for 'blog':
-  blog/migrations/0002_alter_devicespool_table.py
+root@localhost:/var/www/LRM# python3 manage.py makemigrations lrm
+Migrations for 'lrm':
+  lrm/migrations/0002_alter_devicespool_table.py
     - Rename table for devicespool to Devicespool
-root@zdh-web-00:/var/www/mysite# python3 manage.py sqlmigrate blog 0002
+root@localhost:/var/www/LRM# python3 manage.py sqlmigrate lrm 0002
 BEGIN;
 --
 -- Rename table for devicespool to Devicespool
 --
 -- (no-op)
 COMMIT;
-root@zdh-web-00:/var/www/mysite# python3 manage.py migrate
+root@localhost:/var/www/LRM# python3 manage.py migrate
 Operations to perform:
-  Apply all migrations: admin, auth, blog, contenttypes, sessions
+  Apply all migrations: admin, auth, contenttypes, lrm, sessions
 Running migrations:
-  Applying blog.0002_alter_devicespool_table... OK
-root@zdh-web-00:/var/www/mysite#
+  Applying lrm.0002_alter_devicespool_table... OK
+root@localhost:/var/www/LRM# 
 ```
 > 注：如果连接的数据库中已经有数据表，可以用 python3 manage.py inspectdb命令将数据表的格式导出到一个数据模型文件中，注释掉Meta类(class)中managed = False参数后，Django就可以对已有的数据表进行创建、修改和删除操作。
 ```bash
-root@zdh-web-00:/var/www/mysite# python3 manage.py inspectdb > models.py
-root@zdh-web-00:/var/www/mysite# more models.py
+root@localhost:/var/www/LRM# python3 manage.py inspectdb > models.py
+root@localhost:/var/www/LRM# more models.py
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -202,9 +202,9 @@ class AuthGroupPermissions(models.Model):
 
 
 class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=100)
     content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    codename = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
 
     class Meta:
         managed = False
@@ -217,12 +217,12 @@ class AuthUser(models.Model):
     last_login = models.DateTimeField(blank=True, null=True)
     is_superuser = models.BooleanField()
     username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.CharField(max_length=254)
     is_staff = models.BooleanField()
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
+    first_name = models.CharField(max_length=150)
 
     class Meta:
         managed = False
@@ -250,13 +250,13 @@ class AuthUserUserPermissions(models.Model):
 
 
 class DjangoAdminLog(models.Model):
-    action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
     content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    action_time = models.DateTimeField()
 
     class Meta:
         managed = False
@@ -291,20 +291,20 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-root@zdh-web-00:/var/www/mysite#
+root@localhost:/var/www/LRM# 
 ```
 ### 2. 创建数据模型的管理网站
 > 执行命令python3 manage.py createsuperuser创建管理员账号admin和密码如下所示：
 ```bash
-root@zdh-web-00:/var/www/mysite# python3 manage.py createsuperuser
+root@localhost:/var/www/LRM# python3 manage.py createsuperuser
 Username (leave blank to use 'root'): admin
 Email address: admin@skynet.com
 Password: 
 Password (again): 
 Superuser created successfully.
-root@zdh-web-00:/var/www/mysite#
+root@localhost:/var/www/LRM#
 ```
-> 创建管理员账号后访问网址 http://10.229.191.63:8888/admin 可以看到下面的登录页面：
+> 创建管理员账号后访问网址 http://139.144.210.48:8888/admin 可以看到下面的登录页面：
 > 注1：编辑/var/www/LRM/LRM/settings.py配置文件，将LANGUAGE_CODE设置为 'zh-hans'可以，可以在管理页面中显示中文
 ```python
 # Internationalization
@@ -337,7 +337,7 @@ admin.site.index_title="自动化测试中台资源库"
 > 上述设置生效后，用admin账号和密码登录Django项目管理网站页面后可以看到网站名称和标题已经改为自定义的中文名称：
 http://10.229.191.63:8888/admin
 ### 3. 添加数据模型到管理网站
-> 编辑/var/www/mysite/blog/models.py文件中数据表Devicespool的数据模型类Devicespool中的Meta类下的verbose_name和verbose_name_plural参数可以定义数据表在Django管理页面中的中文名称：
+> 编辑/var/www/LRM/lrm/models.py文件中数据表Devicespool的数据模型类Devicespool中的Meta类下的verbose_name和verbose_name_plural参数可以定义数据表在Django管理页面中的中文名称：
 ```python
 class Devicespool(models.Model):
     class Meta:
@@ -346,7 +346,7 @@ class Devicespool(models.Model):
 ```
 修改后管理网站页面显示如下图所示：
 
-> 编辑/var/www/mysite/blog/admin.py文件，添加如下所示的代码可以在Django管理页面上显示数据模型(model)类Devicespool对应的数据库中数据表Devicespool的数据字段显示列表(list_display)、过滤器(list_filter)和搜索框(search_fields)：
+> 编辑/var/www/LRM/lrm/admin.py文件，添加如下所示的代码可以在Django管理页面上显示数据模型(model)类Devicespool对应的数据库中数据表Devicespool的数据字段显示列表(list_display)、过滤器(list_filter)和搜索框(search_fields)：
 ```python
 from django.contrib import admin
 
