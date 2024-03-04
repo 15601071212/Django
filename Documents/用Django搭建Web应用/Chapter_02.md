@@ -304,5 +304,33 @@ Password (again):
 Superuser created successfully.
 root@zdh-web-00:/var/www/mysite#
 ```
-> 创建管理员账号后访问网址http://10.229.191.63:8888/admin可以看到下面的登录页面：
+> 创建管理员账号后访问网址 http://10.229.191.63:8888/admin 可以看到下面的登录页面：
+> 注1：编辑/var/www/LRM/LRM/settings.py配置文件，将LANGUAGE_CODE设置为 'zh-hans'可以，可以在管理页面中显示中文
+```python
+# Internationalization
+# https://docs.djangoproject.com/en/4.1/topics/i18n/
 
+LANGUAGE_CODE = 'zh-hans'
+#LANGUAGE_CODE = 'en-us'
+```
+> 注2：编辑/var/www/mysite/blog/apps.py设置VERBOSE_APP_NAME = "设备资源管理"，可以在管理页面中设置应用(APP)的中文名称
+```python
+from django.apps import AppConfig
+
+VERBOSE_APP_NAME = "设备资源管理"
+
+class BlogConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'blog'
+    verbose_name = VERBOSE_APP_NAME
+```
+> 注3：编辑/var/www/mysite/blog/admin.py添加如下配置自定义Django项目管理网站的中文名称与标题：
+```python
+from django.contrib import admin
+
+admin.site.site_header="自动化测试中台管理系统"
+
+admin.site.site_title="自动化测试中台资源库"
+
+admin.site.index_title="自动化测试中台资源库"
+```
