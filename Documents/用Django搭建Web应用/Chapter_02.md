@@ -372,4 +372,5 @@ class LrmDeviceAdmin(admin.ModelAdmin):
 
 ```
 修改后管理网站页面显示如下图所示：
-![image](https://github.com/15601071212/Django/assets/17488098/73956b60-baf8-4707-8b8e-0321a89f04ff)
+![image](https://github.com/15601071212/Django/assets/17488098/78d04c1e-2450-4125-a371-5e6b8c0649b6)
+
