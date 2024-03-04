@@ -336,3 +336,32 @@ admin.site.index_title="自动化测试中台资源库"
 ```
 > 上述设置生效后，用admin账号和密码登录Django项目管理网站页面后可以看到网站名称和标题已经改为自定义的中文名称：
 http://10.229.191.63:8888/admin
+### 3. 添加数据模型到管理网站
+> 编辑/var/www/mysite/blog/models.py文件中数据表Devicespool的数据模型类Devicespool中的Meta类下的verbose_name和verbose_name_plural参数可以定义数据表在Django管理页面中的中文名称如下图箭头所指部分所示：
+```python
+class Devicespool(models.Model):
+    class Meta:
+        verbose_name = "设备资源"  
+        verbose_name_plural = "设备资源"
+```
+> 编辑/var/www/mysite/blog/admin.py文件，添加如下所示的代码可以在Django管理页面上显示数据模型(model)类Devicespool对应的数据库中数据表Devicespool的数据字段显示列表(list_display)、过滤器(list_filter)和搜索框(search_fields)，如下图所示：
+```python
+from django.contrib import admin
+
+from .models import Devicespool
+
+class LrmDeviceAdmin(admin.ModelAdmin):
+
+    model = Devicespool
+
+    admin_order =1
+
+    list_display = ("device_name", "model", "domain","status", "mgt_address", "mgt_port")
+
+    list_filter = ("model", "status")
+
+    search_fields = ("device_name", "model", "domain", "status", "mgt_address")
+
+    admin.site.register(Devicespool,LrmDeviceAdmin)
+
+```
