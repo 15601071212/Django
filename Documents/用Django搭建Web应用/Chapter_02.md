@@ -341,7 +341,7 @@ admin.site.site_title="自动化测试中台资源库"
 admin.site.index_title="自动化测试中台资源库"
 ```
 > 上述设置生效后，用admin账号和密码登录Django项目管理网站页面后可以看到网站名称和标题已经改为自定义的中文名称：
-http://10.229.191.63:8888/admin
+http://139.144.210.48:8888/admin
 ![image](https://github.com/15601071212/Django/assets/17488098/9189bc96-b66f-48df-bbee-95b5a22335a6)
 
 ### 3. 添加数据模型到管理网站
