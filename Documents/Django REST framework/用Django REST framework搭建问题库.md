@@ -116,13 +116,40 @@ urlpatterns = [
 **1. 运行Django开发服务器:**
 
 ```shell
-python manage.py runserver
+python manage.py runserver 0.0.0.0:9999
 ```
+如果需要远程访问开发服务器默认Web页面，需要在question_db/settings.py文件中把下面这行：
+
+```python
+ALLOWED_HOSTS = []
+```
+
+改为如下所示：
+
+```python
+ALLOWED_HOSTS = ['*']
+
+```
+表示允许所有的主机远程访问开发服务器默认Web页面http://10.229.191.65:9999/
 
 **2. 测试API:** 使用Postman或任何API测试工具，通过以下URL测试你的API：
 
-- 创建问题: POST请求到http://127.0.0.1:8000/api/questions/
-- 检索问题: GET请求到http://127.0.0.1:8000/api/questions/
+- 创建问题: POST请求到http://10.229.191.65:9999/api/questions/
+- 检索问题: GET请求到http://10.229.191.65:9999/api/questions/
 
 > 至此，你已经完成了基于Django和Django REST framework的问题数据库检索系统的开发。你可以通过上述API进行问题信息的录入和检索。
-  
+
+
+> 通过requests发送GET请求进行数据检索
+```python
+import requests
+
+# 发送GET请求
+response = requests.get("http://10.229.191.65:9999/api/questions/3/?format=json")
+
+# 获取响应的JSON数据
+json_data = response.json()
+
+# 打印格式化后的JSON
+print(json.dumps(json_data, indent=4, ensure_ascii=False))
+```
