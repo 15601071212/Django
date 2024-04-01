@@ -44,30 +44,44 @@ psql
 
 首先，切换到postgres用户（如果你还没有这么做）：
 
+```shell
 sudo -i -u postgres
+```
 
 接着，打开PostgreSQL的交互式终端：
 
+```shell
 psql
+```
 
 创建一个新的数据库：
 
+```shell
 CREATE DATABASE mydatabase;
+```
 
 创建一个新的用户，并设置密码：
 
+```shell
 CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword';
+```
 
 给你的用户在新数据库上的所有权限：
 
+```shell
 GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+```
 
 退出psql：
 
+```shell
 \q
+```
 
 返回到你的常规用户：
 
+```shell
 exit
+```
 
 通过以上步骤，你已经成功在你的系统上安装了PostgreSQL，并且可以开始使用它了。如果你打算将PostgreSQL用于Django项目，别忘了在你的settings.py文件中更新数据库配置，以使用你创建的数据库和用户。
