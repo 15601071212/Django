@@ -5,31 +5,39 @@
 ### 步骤1: 更新包列表
 首先，打开终端并运行以下命令来更新你的系统的包列表。这确保你能安装最新版本的软件包。
 
+```shell
 sudo apt update
+```
 
 ### 步骤2: 安装PostgreSQL
 然后，使用apt命令安装PostgreSQL及其必要的软件包。运行以下命令：
 
+```shell
 sudo apt install postgresql postgresql-contrib
-
+```
 postgresql 是PostgreSQL数据库系统的主要软件包。
 postgresql-contrib 包含了一些额外的实用工具和功能扩展。
 
 ### 步骤3: 确认安装
 安装完成后，你可以运行以下命令来确认PostgreSQL服务已经成功安装并正在运行：
 
+```shell
 sudo systemctl status postgresql
-
+```
 如果服务正在运行，你应该会看到输出中显示active (running)状态。
 
 ### 步骤4: 使用PostgreSQL
 PostgreSQL安装完成后，默认会创建一个名为postgres的用户。你可以切换到这个用户来访问PostgreSQL：
 
+```shell
 sudo -i -u postgres
+```
 
 然后，你可以通过运行psql命令来访问PostgreSQL命令行界面：
 
+```shell
 psql
+```
 
 ### 步骤5: 创建数据库和用户（可选）
 如果你需要为你的应用创建一个新的数据库和用户，你可以按照以下步骤操作：
