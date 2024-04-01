@@ -139,6 +139,44 @@ ALLOWED_HOSTS = ['*']
 
 > 至此，你已经完成了基于Django和Django REST framework的问题数据库检索系统的开发。你可以通过上述API进行问题信息的录入和检索。
 
+### 附录1. 通过requests发送GET和POST请求进行数据库的读取与写入 
+> 首先，确保你已经安装了requests库。如果还没有安装，可以通过运行以下命令来安装：
+
+```python
+pip3 install requests
+```
+
+> 通过requests发送POST请求将数据写入数据库：
+
+```python
+import requests
+import json
+
+# API的URL
+url = "http://10.229.191.65:9999/api/questions/"
+
+# 要写入的数据
+data = {
+    "description": "这是一个问题描述示例。",
+    "original_info": "这是一些原始信息示例。",
+    "cause_analysis": "这是一个原因分析示例。",
+    "solution": "这是一个解决方案示例。"
+}
+
+# 将字典转换为JSON格式
+json_data = json.dumps(data)
+
+# 发送POST请求
+response = requests.post(url, data=json_data, headers={'Content-Type': 'application/json'})
+
+# 检查响应
+if response.status_code == 201:
+    print("数据成功写入。")
+    print("返回的数据:", response.json())
+else:
+    print("写入失败，状态码:", response.status_code)
+```
+
 
 > 通过requests发送GET请求进行数据检索
 ```python
@@ -153,3 +191,18 @@ json_data = response.json()
 # 打印格式化后的JSON
 print(json.dumps(json_data, indent=4, ensure_ascii=False))
 ```
+
+### 附录2. 通过dumpdata和loaddata命令来备份和加载数据库中的数据 
+
+> 使用dumpdata命令创建数据库的备份文件：
+
+```shell
+python3 manage.py dumpdata > data.json
+```
+> 使用loaddata命令来加载备份文件中的数据：
+
+```shell
+
+```
+
+
